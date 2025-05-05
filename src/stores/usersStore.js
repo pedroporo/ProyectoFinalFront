@@ -44,6 +44,7 @@ export const useUsersStore = defineStore("userStore", {
         delete this.user.role;
         delete this.user.dissabled;
         localStorage.usuario = JSON.stringify(this.user);
+        await this.populateUser()
       } catch (response) {
         console.error("Error: " + response.message);
       }
@@ -58,8 +59,8 @@ export const useUsersStore = defineStore("userStore", {
         document.cookie =
           "access_token=" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
         localStorage.usuario = JSON.stringify(this.user);
-        console.log("Logout Response: " + response);
-        
+        //console.log("Logout Response: " + response);
+        await this.populateUser()
         return response;
       } catch (response) {
         console.error("Error: " + response.message);

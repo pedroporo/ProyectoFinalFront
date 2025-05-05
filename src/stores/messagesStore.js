@@ -4,7 +4,7 @@ import api from "./api.js";
 export const useMessageStore = defineStore("messageStore", {
   state() {
     return {
-      messages: [],
+      messages: [{"tipo":"success","message":"Sesión cerrada exitosamente"}],
     };
   },
   actions: {
