@@ -86,3 +86,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.dropdown{
+  align-content: center;
+}
+</style>

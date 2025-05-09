@@ -1,104 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import routes from "./routes";
 import BookList from "@/components/Mios/BookList.vue";
 import PathNotFound from "@/components/Mios/PathNotFound.vue";
 import AddBook from "@/components/Mios/AddBook.vue";
 import AboutView from "../views/AboutView.vue";
 import AddCart from "@/components/Mios/AddCart.vue";
 import UserLogin from "@/components/Mios/UserLogin.vue";
-
-
-
-// Admin pages
-const Dashboard = () =>
-  import(/* webpackChunkName: "dashboard" */ "@/pages/Dashboard.vue");
-const Profile = () =>
-  import(/* webpackChunkName: "common" */ "@/pages/Profile.vue");
-const Notifications = () =>
-  import(/* webpackChunkName: "common" */ "@/pages/Notifications.vue");
-const Icons = () =>
-  import(/* webpackChunkName: "common" */ "@/pages/Icons.vue");
-const Maps = () => import(/* webpackChunkName: "common" */ "@/pages/Maps.vue");
-const Typography = () =>
-  import(/* webpackChunkName: "common" */ "@/pages/Typography.vue");
-const TableList = () =>
-  import(/* webpackChunkName: "common" */ "@/pages/TableList.vue");
+import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
+import { useUsersStore } from "@/stores/usersStore";
+import { mapState, mapActions } from "pinia";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: HomeView,
-      children: [
-        {
-          path: "dashboard",
-          name: "dashboard",
-          component: Dashboard,
-        },
-        {
-          path: "profile",
-          name: "profile",
-          component: Profile,
-        },
-        {
-          path: "notifications",
-          name: "notifications",
-          component: Notifications,
-        },
-        {
-          path: "icons",
-          name: "icons",
-          component: Icons,
-        },
-        {
-          path: "typography",
-          name: "typography",
-          component: Typography,
-        },
-        {
-          path: "table-list",
-          name: "table-list",
-          component: TableList,
-        },
-      ],
-    },
-    {
-      path: "/login",
-      name: "login",
-      component: UserLogin,
-    },
-    {
-      path: "/list",
-      name: "list",
-      component: BookList,
-    },
-    {
-      path: "/addBook",
-      name: "addBook",
-      component: AddBook,
-    },
-    {
-      path: "/cart",
-      name: "carrito",
-      component: AddCart,
-    },
-    {
-      path: "/edit/:id",
-      name: "edit",
-      component: AddBook,
-      props: true,
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: AboutView,
-    },
-    {
-      path: "/:pathMatch(.*)*",
-      component: PathNotFound,
-    },
-  ],
+  routes,
   linkExactActiveClass: "active",
   scrollBehavior: (to) => {
     if (to.hash) {
@@ -109,4 +23,50 @@ const router = createRouter({
   },
 });
 
+router.beforeEach((to, from, next) => {
+  //console.log(to);
+
+  if (to.name === "login") {
+    //console.log("Login");
+    checkIfHidden(to, next);
+  } else if (to.meta && to.meta.requiresAuth === false) {
+    //console.log("No need auth");
+
+    checkIfHidden(to, next);
+  } else if (checkCookies("access_token")) {
+    //console.log("Token");
+    checkIfHidden(to, next);
+  } else {
+    //console.log("Else");
+
+    next({ name: "login" });
+  }
+});
+function checkIfHidden(to, next) {
+  //console.log(to.matched.some((record) => record.meta.hideForAuth));
+
+  if (to.matched.some((record) => record.meta.hideForAuth)) {
+    if (checkCookies("access_token")) {
+      next({ name: "dashboard" });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+}
+function getCookie(cname) {
+  const value = `; ${document.cookie}`;
+  //console.log(value);
+
+  const parts = value.split(`; ${cname}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
+function checkCookies(cname) {
+  let cookie = getCookie(cname);
+  const check = cookie != "" && cookie ? true : false;
+  const store = useUsersStore();
+  store.loggedIn=check
+  return check;
+}
 export default router;

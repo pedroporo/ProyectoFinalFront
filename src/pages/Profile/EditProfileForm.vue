@@ -10,8 +10,6 @@
           v-model="model.company"
           disabled
         >
-        <label for="Company">Company</label>
-        Fi
         </base-input>
       </div>
       <div class="col-md-3 px-md-1">

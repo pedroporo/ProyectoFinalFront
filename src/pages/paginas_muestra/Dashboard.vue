@@ -164,8 +164,8 @@
 import LineChart from "@/components/Charts/LineChart";
 import BarChart from "@/components/Charts/BarChart";
 import * as chartConfigs from "@/components/Charts/config";
-import TaskList from "./Dashboard/TaskList.vue";
-import UserTable from "./Dashboard/UserTable.vue";
+import TaskList from "../Dashboard/TaskList.vue";
+import UserTable from "../Dashboard/UserTable.vue";
 import config from "@/config";
 
 export default {

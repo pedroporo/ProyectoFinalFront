@@ -2,6 +2,7 @@
   <nav
     class="navbar navbar-expand-lg navbar-absolute"
     :class="{ 'bg-white': showMenu, 'navbar-transparent': !showMenu }"
+    v-bind:style="!cookie ? 'margin-top:25px;' : ''"
   >
     <div class="container-fluid">
       <div class="navbar-wrapper">
@@ -38,7 +39,11 @@
 
       <collapse-transition>
         <div class="collapse navbar-collapse show" v-show="showMenu">
-          <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
+          <ul
+            v-if="cookie"
+            class="navbar-nav"
+            :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'"
+          >
             <div
               class="search-bar input-group"
               @click="searchModalVisible = true"
@@ -76,6 +81,7 @@
               :menu-on-right="!$rtl.isRTL"
               title-tag="a"
               class="nav-item"
+              icon="tim-icons icon-sound-wave"
             >
               <a
                 slot="title"
@@ -118,6 +124,7 @@
               title-tag="a"
               class="nav-item"
               menu-classes="dropdown-navbar"
+              icon="tim-icons icon-single-02"
             >
               <a
                 slot="title"
@@ -140,7 +147,9 @@
               </li>
               <div class="dropdown-divider"></div>
               <li class="nav-link">
-                <a href="#" class="nav-item dropdown-item">Log out</a>
+                <a href="#" class="nav-item dropdown-item" @click="cerrarSesion"
+                  >Cerrar sesion</a
+                >
               </li>
             </base-dropdown>
           </ul>
@@ -152,7 +161,8 @@
 <script>
 import { CollapseTransition } from "vue3-transitions";
 import Modal from "@/components/Modal.vue";
-
+import { mapState, mapActions } from "pinia";
+import { useUsersStore } from "@/stores/usersStore";
 export default {
   components: {
     CollapseTransition,
@@ -173,6 +183,7 @@ export default {
       showMenu: false,
       searchModalVisible: false,
       searchQuery: "",
+      cookie: document.cookie.split(`; access_token=`)[0],
     };
   },
   methods: {
@@ -194,6 +205,25 @@ export default {
     toggleMenu() {
       this.showMenu = !this.showMenu;
     },
+    async cerrarSesion() {
+      //console.log("Intentando cerrar sesion");
+
+      if (await this.logout()) {
+        this.$notify({
+          icon: "tim-icons icon-alert-circle-exc",
+          horizontalAlign: "center",
+          verticalAlign: "top",
+          type: "success",
+          timeout: 30000,
+          message: "Sesión cerrada exitosamente",
+        });
+        
+        this.cookie = null;
+        this.$router.push({ path: "/login" });
+        //window.location.reload();
+      }
+    },
+    ...mapActions(useUsersStore, ["logout"]),
   },
 };
 </script>

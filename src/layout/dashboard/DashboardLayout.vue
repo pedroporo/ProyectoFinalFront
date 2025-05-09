@@ -38,6 +38,12 @@
           icon="tim-icons icon-align-center"
           :rname=$route.path
         />
+        <sidebar-link
+          to="/test"
+          :name="$t('sidebar.test')"
+          icon="tim-icons icon-align-center"
+          :rname=$route.path
+        />
       </template>
     </side-bar>
     <div class="main-panel">

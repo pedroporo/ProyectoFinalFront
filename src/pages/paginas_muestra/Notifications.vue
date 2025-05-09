@@ -125,9 +125,11 @@
                   <base-button
                     type="primary"
                     block
-                    
                     @click="notifyVue('bottom', 'right')"
                     >Bottom Right</base-button
+                  >
+                  <base-button type="primary" block @click="test()"
+                    >test</base-button
                   >
                 </div>
               </div>
@@ -139,9 +141,10 @@
   </div>
 </template>
 <script>
-import NotificationTemplate from "./Notifications/NotificationTemplate.vue";
+import NotificationTemplate from "../Notifications/NotificationTemplate.vue";
 import { BaseAlert } from "@/components";
-import { markRaw } from 'vue';
+import { markRaw } from "vue";
+
 export default {
   components: {
     BaseAlert,
@@ -157,7 +160,7 @@ export default {
   methods: {
     notifyVue(verticalAlign, horizontalAlign) {
       const color = Math.floor(Math.random() * 4 + 1);
-      
+
       this.$notify({
         component: markRaw(NotificationTemplate),
         icon: "tim-icons icon-bell-55",
@@ -165,6 +168,16 @@ export default {
         verticalAlign: verticalAlign,
         type: this.type[color],
         timeout: 0,
+      });
+    },
+    test() {
+      this.$notify({
+        icon: "tim-icons icon-alert-circle-exc",
+        horizontalAlign: "center",
+        verticalAlign: "top",
+        type: "success",
+        timeout: 0,
+        message: "Sesión cerrada exitosamente",
       });
     },
   },

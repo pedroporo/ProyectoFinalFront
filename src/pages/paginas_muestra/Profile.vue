@@ -1,6 +1,6 @@
 <script>
-import EditProfileForm from "./Profile/EditProfileForm.vue";
-import UserCard from "./Profile/UserCard.vue";
+import EditProfileForm from "../Profile/EditProfileForm.vue";
+import UserCard from "../Profile/UserCard.vue";
 export default {
   components: {
     EditProfileForm,

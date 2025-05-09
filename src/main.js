@@ -7,7 +7,7 @@ import { createPinia } from 'pinia'
 //import "bootstrap/dist/css/bootstrap.min.css";
 
 import App from './App.vue'
-import router from './router/starterRouter'
+import router from './router/index'
 import RouterPrefetch from "vue-router-prefetch";
 import BlackDashboard from "./plugins/blackDashboard";
 
