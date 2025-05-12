@@ -25,7 +25,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   //console.log(to);
-
+  if (!to.query.segmento) {
+    localStorage.removeItem('agentState');
+  }
   if (to.name === "login") {
     //console.log("Login");
     checkIfHidden(to, next);
@@ -66,7 +68,7 @@ function checkCookies(cname) {
   let cookie = getCookie(cname);
   const check = cookie != "" && cookie ? true : false;
   const store = useUsersStore();
-  store.loggedIn=check
+  store.loggedIn = check;
   return check;
 }
 export default router;

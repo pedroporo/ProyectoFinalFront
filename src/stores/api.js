@@ -1,5 +1,9 @@
 import axios from "axios";
 const baseURL = "http://localhost:8765";
+
+function deleteCookie(name) {
+  document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+}
 export function getCookie(name) {
   const value = `; ${document.cookie}`;
   const parts = value.split(`; ${name}=`);
@@ -38,7 +42,7 @@ apiClient.interceptors.response.use(
       window.location.pathname !== "/login"
     ) {
       console.log("Interceptor");
-      
+      deleteCookie('access_token');
       window.location.href = "/login";
     }
     return Promise.reject(error);

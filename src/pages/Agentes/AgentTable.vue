@@ -28,15 +28,15 @@ export default {
   methods: {
     ...mapActions(useAgentsStore, ["populateAgents"]),
     handleClick(evt) {
+      this.$router.push({
+        path: "/agents/" + this.agentes[evt].id,
+      });
 
-      this.$router.push({ path: "/agents/"+this.agentes[evt].id });
-      
       //this.$emit("click", evt);
     },
     createAgent() {
-
       this.$router.push({ path: "/agents/" });
-      
+
       //this.$emit("click", evt);
     },
   },
@@ -55,8 +55,14 @@ export default {
           >
           </base-table>
         </div>
-        <base-button slot="footer" type="primary" nativeType="link" @click="createAgent" fill
-          >Iniciar sesion</base-button>
+        <base-button
+          slot="footer"
+          type="primary"
+          nativeType="link"
+          @click="createAgent"
+          fill
+          >Iniciar sesion</base-button
+        >
       </card>
     </div>
   </div>

@@ -34,7 +34,7 @@ export const useUsersStore = defineStore("userStore", {
         //console.log("Request: "+ response.request?.response);
         this.token = JSON.parse(response.request?.response);
         //console.log("Token: "+this.token);
-        console.log("Cookies: " + this.token);
+        //console.log("Cookies: " + this.token);
         this.setCookie("access_token", this.token.access_token, 30);
         //document.cookie = "access_token=" + this.token.access_token;
         //localStorage.usuario = JSON.stringify(this.user);

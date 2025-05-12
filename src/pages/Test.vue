@@ -1,6 +1,7 @@
 <script>
 //import { store } from "@/stores/store";
 import { useUsersStore } from "@/stores/usersStore";
+import { useAgentsStore } from "@/stores/agentsStore";
 import { useMessageStore } from "@/stores/messagesStore";
 import { mapState, mapActions } from "pinia";
 
@@ -38,6 +39,9 @@ export default {
       getBook: "getBook",
       bExists: "bExists",
     }),*/
+    ...mapState(useAgentsStore, {
+      voces: "voces",
+    }),
   },
   methods: {
     async loginUser() {
@@ -121,6 +125,33 @@ export default {
             >
             </Field>
             <ErrorMessage class="invalid-feedback" name="callcsv" />
+          </base-input>
+          <base-input>
+            <label for="voces">Selecciona la voz que tendra el agente</label>
+            <Field
+              name="voces"
+              ref="callcsv"
+              placeholder="Introduce tu email o nombre de usuario"
+              as="select"
+              :class="[
+                'form-control',
+                {
+                  'is-valid':
+                    $refs.username?.meta.valid && $refs.username?.meta.touched,
+                  'is-invalid':
+                    $refs.username?.meta.valid === false &&
+                    $refs.username?.meta.touched,
+                },
+              ]"
+              v-model="user.voz"
+              required
+            >
+            <option default hidden value="">- Selecciona un módulo -</option>
+          <option v-for="voz in this.vpces" :value="voz">
+            {{ voz }}
+          </option>
+            </Field>
+            <ErrorMessage class="invalid-feedback" name="voces" />
           </base-input>
         </div>
         <base-button slot="footer" type="primary" nativeType="submit" fill>

@@ -70,6 +70,7 @@ const routes = [
         path: "agents",
         name: "agentCreate",
         component: AgentItem,
+        props: true,
         meta: {
           requiresAuth: true,
         },

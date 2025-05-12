@@ -6,7 +6,8 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 
 export default {
-  name: "agent-item",
+  name: "agent-item-form",
+  props: ["item"],
   components: {
     Form,
     Field,
@@ -14,57 +15,36 @@ export default {
   },
   data() {
     const agentSchema = yup.object({
-      username: yup.string().required("El nombre del agente es obligatorio"),
+      name: yup.string().required("El nombre del agente es obligatorio"),
       password: yup.string().required("Introduce la contraseña"),
+      voice: yup
+        .string(
+          "¿Eh?, Aqui solo puede ir texto, ¿como hiciste para meter algo que no sea texto?"
+        )
+        .required(
+          "¿Por que no quieres seleccionar una voz?¿Como piensas que se comunique?"
+        )
+        .matches(
+          /(new|good|used|bad)/,
+          "Oye, solo se puede poner las voces que te damos. ¿Como te las arreglaste para meter algo que no sea eso?"
+        ),
     });
     return {
-      agent: {},
+      agent: JSON.parse(localStorage.getItem("agentState")) || this.item || {},
       agentSchema,
       route: this.$route,
       agentId: this.$route.params.id,
       query: this.$route.query,
+      regex: `/()/`,
     };
   },
 
   mounted() {
-    //console.log(this.$route.query);
-    this.$watch(
-      "query",
-      function () {
-        console.log("query cambia");
-      },
-      {
-        deep: true,
-      }
-    );
-    this.$watch(
-      "query",
-      function (newVal, oldVal) {
-        ///this.results.push('Old value:'+oldVal+', new value: '+newVal)
-        console.log(`Query old val: ${oldVal.test}`);
-
-        console.log(`Query new val: ${newVal.test}`);
-      },
-      {
-        deep: true,
-      }
-    );
-    this.$watch(
-      "agentId",
-      function (newVal, oldVal) {
-        ///this.results.push('Old value:'+oldVal+', new value: '+newVal)
-        console.log("AgentId old val: " + oldVal);
-
-        console.log("AgentId old val: " + newVal);
-      },
-      {
-        deep: true,
-      }
-    );
-    /*if (this.$route.params.id) {
-      //this.getAgentId();
-      this.agentId = this.$route.params.id;
-    }*/
+    if (!JSON.parse(localStorage.getItem("agentState"))) {
+      this.getAgentId();
+      //this.agentId = this.$route.params.id;
+    }
+    this.regex = `/(${this.voces.join("|")})/`;
   },
   computed: {
     ...mapState(useAgentsStore, {
@@ -75,50 +55,11 @@ export default {
     query: this.$route.query,*/
   },
   watch: {
-    agentId(newValue, oldValue) {
-      console.log(oldValue);
-
-      console.log(newValue);
-
-      //newValue.params.id !== oldValue.params.id ? this.getAgentId() : {};
-    },
-    /*query: {
-      handler(newQuery, oldQuery) {
-        console.log(newQuery);
-        console.log(oldQuery);
-        if (newQuery !== oldQuery) {
-          console.log(newQuery);
-          console.log(oldQuery);
-        }
+    agent: {
+      handler(newVal) {
+        this.$emit("update-agent", newVal);
       },
-      deep: true, // Necesario para que detecte cambios dentro del objeto query
-    },*/
-    "route.query": {
-      handler(newQuery, oldQuery) {
-        console.log("Change in route");
-        if (newQuery !== oldQuery) {
-          console.log(newQuery);
-          console.log(oldQuery);
-        }
-      },
-      deep: true, // Necesario para que detecte cambios dentro del objeto query
-    },
-
-    $route(newValue, oldValue) {
-      console.log(oldValue);
-
-      console.log(newValue);
-
-      newValue.params.id !== oldValue.params.id ? this.getAgentId() : {};
-    },
-    query: {
-      handler(newQuery, oldQuery) {
-        if (newQuery !== oldQuery) {
-          console.log(newQuery);
-          console.log(oldQuery);
-        }
-      },
-      deep: true, // Necesario para que detecte cambios dentro del objeto query
+      deep: true,
     },
   },
   methods: {
@@ -141,25 +82,6 @@ export default {
       } else {
         this.getAgentId();
       }
-    },
-    test(num) {
-      //console.log(num);
-      //console.log(this.$route.query);
-      /*this.$router.replace({
-        path: this.$route.path,
-        query: {
-          ...this.$route.query,
-          test: num,
-        },
-      });*/
-      /*this.query = {
-          ...this.query,
-          test: num,
-        };*/
-      this.route.query = {
-        ...this.route.query,
-        test: num,
-      };
     },
     async getAgentId() {
       try {
@@ -256,25 +178,6 @@ export default {
           Guardar
         </base-button>
       </Form>
-      <base-button
-        slot="footer"
-        type="primary"
-        nativeType="button"
-        @click="test(5)"
-        link="true"
-        fill
-      >
-        Click 4¡5
-      </base-button>
-      <base-button
-        slot="footer"
-        type="primary"
-        nativeType="button"
-        @click="test(4)"
-        fill
-      >
-        Click 4
-      </base-button>
     </card>
   </div>
 </template>
