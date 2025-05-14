@@ -231,9 +231,45 @@ textarea.form-control {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: $custom-file-height;
   z-index: 100;
 }
+.control-file-label {
+  position: relative;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: $custom-file-height;
+  padding: $custom-file-padding-y $custom-file-padding-x;
+  line-height: $custom-file-line-height;
+  color: $custom-file-color;
+  background-color: $custom-file-bg;
+  border: $custom-file-border-width solid lighten($black, 5%);
+  @include border-radius($custom-file-border-radius);
+  @include box-shadow($custom-file-box-shadow);
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: block;
+    height: $custom-file-height-inner;
+    padding: $custom-file-padding-y $custom-file-padding-x;
+    line-height: $custom-file-line-height;
+    color: $custom-file-button-color;
+    content: "Browse";
+    @include gradient-bg($custom-file-button-bg);
+    border-left: $custom-file-border-width solid lighten($black, 5%);
+    @include border-radius(
+      0 $custom-file-border-radius $custom-file-border-radius 0
+    );
+  }
+}
+
 
 .form-text {
   font-size: $font-size-sm;

@@ -4,6 +4,7 @@ import { mapState, mapActions } from "pinia";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
 import AgentItemForm from "./AgentItemForm.vue";
+import CallTable from "../Llamadas/CallTable.vue";
 export default {
   name: "agent-item",
   components: {
@@ -11,15 +12,16 @@ export default {
     Field,
     ErrorMessage,
     AgentItemForm,
+    CallTable,
   },
   data() {
     return {
       agent: JSON.parse(localStorage.agentes)[this.$route.params.id - 1] || {},
-      agentSchema,
       route: this.$route,
       agentId: this.$route.params.id,
       query: this.$route.query,
       regex: `/()/`,
+      reload: false,
     };
   },
 
@@ -32,7 +34,7 @@ export default {
       voces: "voces",
       agentes: "agentes",
     }),
-    test: {},
+
     /*agentId: this.$route.params.id,
     query: this.$route.query,*/
   },
@@ -122,7 +124,7 @@ export default {
     type="primary"
     nativeType="button"
     @click="segmentos('agente')"
-    link="true"
+    :link="true"
     fill
   >
     Agentes
@@ -132,7 +134,8 @@ export default {
     type="primary"
     nativeType="button"
     @click="segmentos('llamadas')"
-    link="true"
+    :link="true"
+    v-if="this.agent.id"
     fill
   >
     Llamadas
@@ -144,7 +147,12 @@ export default {
     :item="agent"
     @update-agent="handleAgentUpdate"
   ></agent-item-form>
+  <call-table
+    v-if="route.query.segmento == 'llamadas' && !this.reload"
+    :agentId="agentId"
+  ></call-table>
 </template>
+
 <style scoped>
 .login-page {
   display: flex;

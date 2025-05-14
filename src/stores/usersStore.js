@@ -20,17 +20,28 @@ export const useUsersStore = defineStore("userStore", {
         this.user = JSON.parse(localStorage.usuario);
       }*/
       this.loggedIn = await this.checkCookies("access_token");
+      if (this.loggedIn) {
+        const response = await api.users.getAll();
+        this.user = response.data;
+      }
       //const response = await api.users.getAll();
       //console.log("UserGet: " + response.request?.response);
       //this.user = JSON.parse(response.request?.response);
     },
-
+    async modUser(userMod) {
+      try {
+        const response = await api.users.modify(userMod);
+        this.user = JSON.parse(response.request?.response);
+      } catch (response) {
+        console.error("Error: " + response.message);
+      }
+    },
     async login(usuario) {
       try {
         //console.log("Usuario:"+usuario);
 
         const response = await api.users.login(usuario);
-        //console.log("Response: "+ response.data[0]);
+        //console.log("Response: "+ response.request?.response);
         //console.log("Request: "+ response.request?.response);
         this.token = JSON.parse(response.request?.response);
         //console.log("Token: "+this.token);
@@ -39,13 +50,13 @@ export const useUsersStore = defineStore("userStore", {
         //document.cookie = "access_token=" + this.token.access_token;
         //localStorage.usuario = JSON.stringify(this.user);
         const respo = await api.users.getAll();
-        //console.log("UserGet: "+respo);
+        //console.log("UserGet: "+respo.request?.response);
 
         this.user = JSON.parse(respo.request?.response);
         delete this.user.password;
         delete this.user.role;
         delete this.user.dissabled;
-        localStorage.usuario = JSON.stringify(this.user);
+        //localStorage.usuario = JSON.stringify(this.user);
         await this.populateUser();
       } catch (response) {
         console.log(response);
@@ -93,7 +104,7 @@ export const useUsersStore = defineStore("userStore", {
 
         document.cookie =
           "access_token=" + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-        localStorage.usuario = JSON.stringify(this.user);
+        //localStorage.usuario = JSON.stringify(this.user);
         //console.log("Logout Response: " + response);
         await this.populateUser();
         return response;

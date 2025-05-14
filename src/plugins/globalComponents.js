@@ -1,5 +1,6 @@
 import {
   BaseInput,
+  BaseInputFile,
   Card,
   BaseDropdown,
   BaseButton,
@@ -12,6 +13,7 @@ import {
 const GlobalComponents = {
   install(app) {
     app.component(BaseInput.name, BaseInput);
+    app.component(BaseInputFile.name, BaseInputFile);
     app.component(Card.name, Card);
     app.component(BaseDropdown.name, BaseDropdown);
     app.component(BaseButton.name, BaseButton);

@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "http://localhost:8765";
+const baseURL = import.meta.env.VITE_RUTA_API;
 
 function deleteCookie(name) {
   document.cookie = `${name}=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
@@ -14,8 +14,9 @@ const apiClient = axios.create({
   baseURL: baseURL,
   withCredentials: false,
   headers: {
-    Accept: "application/json",
+    Accept: "*/*",
     "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true",
   },
 });
 
@@ -42,7 +43,7 @@ apiClient.interceptors.response.use(
       window.location.pathname !== "/login"
     ) {
       console.log("Interceptor");
-      deleteCookie('access_token');
+      deleteCookie("access_token");
       window.location.href = "/login";
     }
     return Promise.reject(error);
@@ -67,7 +68,7 @@ export const modules = {
   delete: (id) => apiClient.delete(`/modules/${id}`),
 };
 export const users = {
-  name:"api/users",
+  name: "api/users",
   getAll: () => apiClient.get(`/${users.name}/me`),
   getOne: (id) => apiClient.get(`/modules/${id}`),
   create: (book) => apiClient.post(`/modules`, book),
@@ -80,7 +81,7 @@ export const users = {
   logout: () => apiClient.get(`/${users.name}/logout`),
 };
 export const agents = {
-  name:"api/agents",
+  name: "api/agents",
   getAll: () => apiClient.get(`/${agents.name}/`),
   getOne: (id) => apiClient.get(`/${agents.name}/${id}`),
   create: (agent) => apiClient.post(`/${agents.name}`, agent),
@@ -89,13 +90,22 @@ export const agents = {
   make_calls: (id) => apiClient.get(`/${agents.name}/${id}`),
 };
 export const calls = {
-  name:"api/calls",
-  getAll: (agentId) => apiClient.get(`/${calls.name}/${agentId}`),
+  name: "api/calls",
+  getAll: (agentId) => apiClient.get(`/${calls.name}/a/${agentId}`),
   getOne: (id) => apiClient.get(`/${calls.name}/${id}`),
+  getTranscript: (id) => apiClient.get(`/${calls.name}/${id}/transcription`),
+  getRecording: (id) =>
+    apiClient.get(`/${calls.name}/${id}/recording`, { responseType: "blob" }),
   create: (call) => apiClient.post(`/${calls.name}`, call),
   modify: (call) => apiClient.put(`/${calls.name}/${call.id}`, call),
   delete: (id) => apiClient.delete(`/${calls.name}/${id}`),
-  upload_csv: (csv,agentId) => apiClient.post(`/${calls.name}/${agentId}`, csv, {headers: {'Content-Type': 'multipart/form-data'}}),
+  upload_csv: (csv, agentId) => {
+    let data = new FormData();
+    data.append("file", csv);
+    return apiClient.post(`/${calls.name}/upload_csv/${agentId}`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+  },
 };
 export default {
   books,

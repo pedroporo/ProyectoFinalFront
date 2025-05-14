@@ -100,10 +100,13 @@ export default {
         :v-model="user"
         @submit="loginUser"
         @reset="controlForm"
+        style=""
       >
         <div class="">
-          <base-input>
-            <label for="file">Haz click aqui para subir el archivo</label>
+          <base-input-file
+          fileText="Haz click aqui para subir el archivo"
+          >
+            <label class="control-label control-file-label" for="file">Haz click aqui para subir el archivo</label>
             <Field
               name="file"
               ref="callcsv"
@@ -125,7 +128,7 @@ export default {
             >
             </Field>
             <ErrorMessage class="invalid-feedback" name="callcsv" />
-          </base-input>
+          </base-input-file>
           <base-input>
             <label for="voces">Selecciona la voz que tendra el agente</label>
             <Field

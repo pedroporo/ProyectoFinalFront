@@ -61,7 +61,7 @@ export default {
           nativeType="link"
           @click="createAgent"
           fill
-          >Iniciar sesion</base-button
+          >Crear Agente</base-button
         >
       </card>
     </div>

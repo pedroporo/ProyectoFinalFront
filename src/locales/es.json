@@ -113,5 +113,17 @@
     "typography": "Tipografía",
     "rtlSupport": "Soporte RTL",
     "test": "Pruebas"
+  },
+  "calls": {
+    "id": "id",
+    "contact_name": "Nombre de contacto",
+    "phone_number": "Numero de telefono",
+    "call_id": "Id de la llamada",
+    "status": "Estado",
+    "call_date": "Fecha de la llamada",
+    "call_duration": "Duracion de la llamada (en segundos)",
+    "agent_id": "Id del agente",
+    "recording":"Grabacion de la llamada",
+    "transcript":"Transcrippcion de la llamada (hecha por twilio)"
   }
 }

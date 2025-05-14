@@ -1,13 +1,12 @@
 <script>
-import { useAgentsStore } from "@/stores/agentsStore";
+import { useLlamadasStore } from "@/stores/llamadaStore";
 import { mapState, mapActions } from "pinia";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
 import * as yup from "yup";
 
 export default {
-  name: "agent-item-form",
-  props: ["item"],
+  name: "call-form",
   components: {
     Form,
     Field,
@@ -31,29 +30,24 @@ export default {
         phone_number: yup.string().required().matches(/^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/,"Tienes que introducir un formato de numero de telefono valido EJ (+34123123123)")
     });*/
     return {
-      agent: JSON.parse(localStorage.getItem("agentState")) || this.item || {},
-      //agentSchema,
+      call: {},
       route: this.$route,
-      agentId: this.$route.params.id,
-      query: this.$route.query,
-      regex: `/()/`,
+      /*agentId: this.$route.params.id,
+      query: this.$route.query,*/
     };
   },
 
   mounted() {
-    if (
-      !JSON.parse(localStorage.getItem("agentState")) &&
-      this.$route.params.id
-    ) {
-      this.getAgentId();
+    console.log(this.route.name);
+    //Planeo hacer que si el nombre de la ruta es mod cargue la llamada y si no que la id la use para el agente
+    if (this.route.params.id) {
+      //this.getAgentId();
       //this.agentId = this.$route.params.id;
     }
-    this.regex = `/(${this.voces.join("|")})/`;
   },
   computed: {
-    ...mapState(useAgentsStore, {
-      getAgent: "getAgent",
-      voces: "voces",
+    ...mapState(useLlamadasStore, {
+      getCall: "getCall",
     }),
     agentSchema() {
       const voicesRegex = new RegExp(`^(${this.voces.join("|")})$`);
@@ -92,9 +86,9 @@ export default {
     },
   },
   methods: {
-    async addUser() {
+    async addCall() {
       try {
-        if (!this.agent.id) {
+        if (!this.call.id) {
           await this.addAgent(this.agent);
         } else {
           await this.modAgent(this.agent);
@@ -106,8 +100,8 @@ export default {
       this.$router.push({ path: "/dashboard" });
     },
     controlForm() {
-      if (!this.agent.id) {
-        this.agent = {};
+      if (!this.call.id) {
+        this.call = {};
       } else {
         this.getAgentId();
       }
@@ -136,12 +130,12 @@ export default {
         this.$router.push({ path: "/agents" });
       }
     },
-    ...mapActions(useAgentsStore, ["modAgent", "addAgent"]),
+    ...mapActions(useLlamadasStore, ["modCall", "addCall"]),
   },
 };
 </script>
 <template>
-  <div class="login-page">
+  <!--<div class="login-page">
     <card>
       <h5 slot="header" v-if="!this.agent.id" class="title">Crear agente</h5>
       <h5 slot="header" v-else class="title">{{ this.agent.name }}</h5>
@@ -150,7 +144,7 @@ export default {
         ref="loginForm"
         :v-model="agent"
         :validation-schema="agentSchema"
-        @submit="addUser"
+        @submit="addCall"
         @reset="controlForm"
       >
         <div class="row">
@@ -315,7 +309,7 @@ export default {
         </base-button>
       </Form>
     </card>
-  </div>
+  </div>-->
 </template>
 <style scoped>
 .login-page {

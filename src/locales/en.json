@@ -113,5 +113,15 @@
     "typography": "Typography",
     "rtlSupport": "RTL Support",
     "test":"Test"
+  },
+  "calls": {
+    "id": "id",
+    "contact_name": "Contact name",
+    "phone_number": "Phone number",
+    "call_id": "Call id (Twilio)",
+    "status":"Status",
+    "call_date":"Call date",
+    "call_duration":"Call Duration (In seconds)",
+    "agent_id":"Agent Id"
   }
 }

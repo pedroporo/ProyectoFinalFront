@@ -7,6 +7,7 @@ import Starter from "../layout/starter/SamplePage.vue";
 import UserLogin from "@/pages/UserLogin.vue";
 import AgentTable from "@/pages/Agentes/AgentTable.vue";
 import AgentItem from "@/pages/Agentes/AgentItem.vue";
+import CallForm from "@/pages/Llamadas/CallForm.vue";
 import Test from "@/pages/Test.vue";
 // Admin pages
 const Dashboard = () =>
@@ -74,16 +75,38 @@ const routes = [
         meta: {
           requiresAuth: true,
         },
-        children:[
+        children: [
           {
             path: ":id",
             name: "agentMod",
             component: AgentItem,
             props: true,
+            meta: {
+              requiresAuth: true,
+            },
           },
-        ]
+        ],
       },
-      
+      {
+        path: "/call/:id",
+        name: "callCreate",
+        component: CallForm,
+        props: true,
+        meta: {
+          requiresAuth: true,
+        },
+        children: [
+          {
+            path: "mod",
+            name: "callMod",
+            component: CallForm,
+            props: true,
+            meta: {
+              requiresAuth: true,
+            },
+          },
+        ],
+      },
       {
         path: "notifications",
         name: "notifications",
