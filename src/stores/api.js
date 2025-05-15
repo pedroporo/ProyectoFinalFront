@@ -70,10 +70,8 @@ export const modules = {
 export const users = {
   name: "api/users",
   getAll: () => apiClient.get(`/${users.name}/me`),
-  getOne: (id) => apiClient.get(`/modules/${id}`),
-  create: (book) => apiClient.post(`/modules`, book),
-  modify: (book) => apiClient.put(`/modules/${book.id}`, book),
-  delete: (id) => apiClient.delete(`/modules/${id}`),
+  create: (user) => apiClient.post(`/${users.name}/register`, user),
+  modify: (user) => apiClient.put(`/${users.name}/me`, user),
   loginGoogle: () => {
     window.location.href = baseURL + `/${users.name}/login/google`;
   },
@@ -96,7 +94,7 @@ export const calls = {
   getTranscript: (id) => apiClient.get(`/${calls.name}/${id}/transcription`),
   getRecording: (id) =>
     apiClient.get(`/${calls.name}/${id}/recording`, { responseType: "blob" }),
-  create: (call) => apiClient.post(`/${calls.name}`, call),
+  create: (call) => apiClient.post(`/${calls.name}/`, call),
   modify: (call) => apiClient.put(`/${calls.name}/${call.id}`, call),
   delete: (id) => apiClient.delete(`/${calls.name}/${id}`),
   upload_csv: (csv, agentId) => {

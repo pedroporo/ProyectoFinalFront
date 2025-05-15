@@ -8,7 +8,7 @@
           icon="tim-icons icon-chart-pie-36"
           :rname=$route.path
         />
-        <sidebar-link
+        <!--<sidebar-link
           to="/icons"
           :name="$t('sidebar.icons')"
           icon="tim-icons icon-atom"
@@ -43,7 +43,7 @@
           :name="$t('sidebar.test')"
           icon="tim-icons icon-align-center"
           :rname=$route.path
-        />
+        />-->
       </template>
     </side-bar>
     <div class="main-panel">

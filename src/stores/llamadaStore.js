@@ -5,6 +5,14 @@ export const useLlamadasStore = defineStore("llamadaStore", {
   state() {
     return {
       llamadas: [],
+      status: [
+        "ready",
+        "busy",
+        "canceled",
+        "completed",
+        "failed",
+        "no-answer",
+      ],
     };
   },
   getters: {
