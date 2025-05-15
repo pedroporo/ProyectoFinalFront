@@ -33,6 +33,7 @@ export default {
       getAgent: "getAgent",
       voces: "voces",
       agentes: "agentes",
+      makeCalls: "makeCalls",
     }),
 
     /*agentId: this.$route.params.id,
@@ -139,6 +140,17 @@ export default {
     fill
   >
     Llamadas
+  </base-button>
+  <base-button
+    slot="footer"
+    type="primary"
+    nativeType="button"
+    @click="makeCalls(this.agent.id)"
+    :link="true"
+    v-if="this.agent.id"
+    fill
+  >
+    Hacer llamadas
   </base-button>
   <agent-item-form
     v-if="

@@ -19,6 +19,7 @@ export const useAgentsStore = defineStore("agentsStore", {
   },
   getters: {
     getAgent: (state) => async (id) => (await api.agents.getOne(id)).data,
+    makeCalls: (state) => async (id) => (await api.agents.make_calls(id)).data,
   },
   actions: {
     async populateAgents() {

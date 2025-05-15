@@ -85,7 +85,7 @@ export const agents = {
   create: (agent) => apiClient.post(`/${agents.name}`, agent),
   modify: (agent) => apiClient.put(`/${agents.name}/${agent.id}`, agent),
   delete: (id) => apiClient.delete(`/${agents.name}/${id}`),
-  make_calls: (id) => apiClient.get(`/${agents.name}/${id}`),
+  make_calls: (id) => apiClient.get(`/${agents.name}/${id}/makeCalls`),
 };
 export const calls = {
   name: "api/calls",
