@@ -8,6 +8,24 @@
           icon="tim-icons icon-chart-pie-36"
           :rname=$route.path
         />
+        <sidebar-link
+          to="/credentials"
+          :name="$t('sidebar.credentials')"
+          icon="tim-icons icon-lock-circle"
+          :rname=$route.path
+        />
+        <sidebar-link
+          to="/database"
+          :name="$t('sidebar.database')"
+          icon="tim-icons icon-planet"
+          :rname=$route.path
+        />
+        <sidebar-link
+          to="/mail"
+          :name="$t('sidebar.mail')"
+          icon="tim-icons icon-email-85"
+          :rname=$route.path
+        />
         <!--<sidebar-link
           to="/icons"
           :name="$t('sidebar.icons')"

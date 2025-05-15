@@ -140,7 +140,9 @@
                 <p class="d-lg-none">Log out</p>
               </a>
               <li class="nav-link">
-                <a href="#" class="nav-item dropdown-item">Profile</a>
+                <a href="/profile" class="nav-item dropdown-item">{{
+                  $t("sidebar.userProfile")
+                }}</a>
               </li>
               <li class="nav-link">
                 <a href="#" class="nav-item dropdown-item">Settings</a>
@@ -217,7 +219,7 @@ export default {
           timeout: 30000,
           message: "Sesión cerrada exitosamente",
         });
-        
+
         this.cookie = null;
         this.$router.push({ path: "/login" });
         //window.location.reload();

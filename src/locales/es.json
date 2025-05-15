@@ -112,7 +112,10 @@
     "tableList": "Lista de tablas",
     "typography": "Tipografía",
     "rtlSupport": "Soporte RTL",
-    "test": "Pruebas"
+    "test": "Pruebas",
+    "credentials": "Configuracion APIS",
+    "database": "Base de datos",
+    "mail": "Servidor de correo"
   },
   "calls": {
     "id": "id",
@@ -123,7 +126,7 @@
     "call_date": "Fecha de la llamada",
     "call_duration": "Duracion de la llamada (en segundos)",
     "agent_id": "Id del agente",
-    "recording":"Grabacion de la llamada",
-    "transcript":"Transcrippcion de la llamada (hecha por twilio)"
+    "recording": "Grabacion de la llamada",
+    "transcript": "Transcrippcion de la llamada (hecha por twilio)"
   }
 }

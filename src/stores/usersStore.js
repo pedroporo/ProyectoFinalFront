@@ -32,6 +32,7 @@ export const useUsersStore = defineStore("userStore", {
       try {
         const response = await api.users.modify(userMod);
         this.user = JSON.parse(response.request?.response);
+        return response;
       } catch (response) {
         console.error("Error: " + response.message);
       }

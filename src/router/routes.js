@@ -8,7 +8,11 @@ import UserLogin from "@/pages/UserLogin.vue";
 import AgentTable from "@/pages/Agentes/AgentTable.vue";
 import AgentItem from "@/pages/Agentes/AgentItem.vue";
 import CallForm from "@/pages/Llamadas/CallForm.vue";
+import EditProfile from "@/pages/Users/EditProfile.vue";
 import Test from "@/pages/Test.vue";
+import CredentialsUser from "@/pages/Users/configPages/CredentialsUser.vue";
+import DatabaseUser from "@/pages/Users/configPages/DatabaseUser.vue";
+import MailUser from "@/pages/Users/configPages/MailUser.vue";
 // Admin pages
 const Dashboard = () =>
   import(
@@ -52,6 +56,38 @@ const routes = [
         },
       },
       {
+        path: "credentials",
+        name: "credentials",
+        component: CredentialsUser,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "database",
+        name: "database",
+        component: DatabaseUser,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "mail",
+        name: "mailSettings",
+        component: MailUser,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
+        path: "home",
+        name: "homeScreen",
+        component: AgentTable,
+        meta: {
+          requiresAuth: true,
+        },
+      },
+      {
         path: "dashboard",
         name: "dashboard",
         component: AgentTable,
@@ -62,7 +98,7 @@ const routes = [
       {
         path: "profile",
         name: "profile",
-        component: Profile,
+        component: EditProfile,
         meta: {
           requiresAuth: true,
         },
