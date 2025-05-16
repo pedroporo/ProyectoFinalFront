@@ -59,7 +59,6 @@ export default {
       const voicesRegex = new RegExp(`^(${this.voces.join("|")})$`);
       return yup.object({
         name: yup.string().required("El nombre del agente es obligatorio"),
-        password: yup.string().required("Introduce la contraseña"),
         voice: yup
           .string(
             "¿Eh?, Aqui solo puede ir texto, ¿como hiciste para meter algo que no sea texto?"
@@ -92,7 +91,7 @@ export default {
     },
   },
   methods: {
-    async addUser() {
+    async addAgentForm() {
       try {
         if (!this.agent.id) {
           await this.addAgent(this.agent);
@@ -102,7 +101,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      this.book = {};
+      this.agent = {};
       this.$router.push({ path: "/dashboard" });
     },
     controlForm() {
@@ -150,40 +149,40 @@ export default {
         ref="loginForm"
         :v-model="agent"
         :validation-schema="agentSchema"
-        @submit="addUser"
+        @submit="addAgentForm"
         @reset="controlForm"
       >
         <div class="row">
           <div class="col-md-6 pr-md-1">
             <base-input>
-              <label for="username">Nombre</label>
+              <label for="name">Nombre</label>
               <Field
-                name="username"
-                ref="username"
+                name="name"
+                ref="name"
                 placeholder="Introduce el nombre del agente (opcional)"
                 type="text"
                 :class="[
                   'form-control',
                   {
                     'is-valid':
-                      $refs.username?.meta.valid &&
-                      $refs.username?.meta.touched,
+                      $refs.name?.meta.valid &&
+                      $refs.name?.meta.touched,
                     'is-invalid':
-                      $refs.username?.meta.valid === false &&
-                      $refs.username?.meta.touched,
+                      $refs.name?.meta.valid === false &&
+                      $refs.name?.meta.touched,
                   },
                 ]"
                 v-model="agent.name"
               >
               </Field>
-              <ErrorMessage class="invalid-feedback" name="username" />
+              <ErrorMessage class="invalid-feedback" name="name" />
             </base-input>
           </div>
           <div class="col-md-6 pr-md-1">
             <base-input>
               <label for="voice">Selecciona la voz que tendra el agente</label>
               <Field
-                name="voces"
+                name="voice"
                 ref="voice"
                 placeholder="Selecciona una voz"
                 as="select"
@@ -310,7 +309,7 @@ export default {
           </div>
         </div>
 
-        <base-button slot="footer" type="primary" nativeType="submit" fill>
+        <base-button slot="footer" type="primary" is="submit" nativeType="submit" fill>
           Guardar
         </base-button>
       </Form>

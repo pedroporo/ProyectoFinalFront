@@ -38,6 +38,8 @@ export const useAgentsStore = defineStore("agentsStore", {
     },
     async addAgent(agent) {
       try {
+        console.log("Add Agent");
+        
         const response = await api.agents.create(agent);
         if (response) {
           this.agentes.push(agent);
@@ -50,6 +52,7 @@ export const useAgentsStore = defineStore("agentsStore", {
       }
     },
     async modAgent(agentMod) {
+      console.log("Mod Agent");
       try {
         const response = await api.agents.modify(agentMod);
         if (response) {
