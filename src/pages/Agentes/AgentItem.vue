@@ -7,6 +7,7 @@ import AgentItemForm from "./AgentItemForm.vue";
 import CallTable from "../Llamadas/CallTable.vue";
 export default {
   name: "agent-item",
+  inheritAttrs: false,
   components: {
     Form,
     Field,

@@ -4,6 +4,7 @@ const tableColumns = ["Id", "Name", "Descripcion"];
 import { useAgentsStore } from "@/stores/agentsStore";
 import { mapState, mapActions } from "pinia";
 export default {
+  inheritAttrs: false,
   components: {
     BaseTable,
   },

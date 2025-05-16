@@ -8,7 +8,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router/index'
-import RouterPrefetch from "vue-router-prefetch";
+//import RouterPrefetch from "vue-router-prefetch";
 import BlackDashboard from "./plugins/blackDashboard";
 
 import i18n from "./i18n";
