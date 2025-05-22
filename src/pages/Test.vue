@@ -149,8 +149,8 @@ export default {
               v-model="user.voz"
               required
             >
-            <option default hidden value="">- Selecciona un módulo -</option>
-          <option v-for="voz in this.vpces" :value="voz">
+            <option default class="form-option" hidden value="">- Selecciona un módulo -</option>
+          <option v-for="voz in this.voces" class="form-option" :value="voz">
             {{ voz }}
           </option>
             </Field>

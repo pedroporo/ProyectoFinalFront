@@ -199,8 +199,8 @@ export default {
                 v-model="agent.voice"
                 required
               >
-                <option default hidden value="">- Selecciona una voz -</option>
-                <option v-for="voz in this.voces" :value="voz">
+                <option default class="form-option" hidden value="">- Selecciona una voz -</option>
+                <option v-for="voz in this.voces" class="form-option" :value="voz">
                   {{ voz }}
                 </option>
               </Field>

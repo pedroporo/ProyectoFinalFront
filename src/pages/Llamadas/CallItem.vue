@@ -74,7 +74,7 @@ export default {
         //console.log(this.call);
 
         if (this.call.status == "completed") {
-          this.call.transcript = await this.getTranscript(this.call.call_id);
+          //this.call.transcript = await this.getTranscript(this.call.call_id);
           //console.log(await this.getTranscript(this.call.call_id));
 
           await this.fetchRecording(this.call.call_id);
@@ -112,7 +112,27 @@ export default {
         });
       }
     },
-    ...mapActions(useLlamadasStore, ["modCall", "addCall", "getRecording"]),
+     async deleteCall(callId) {
+      try {
+        // Cambia la URL según tu backend
+        const response = await this.getRecording(callId);
+        // Crear un objeto URL para el blob
+        //console.log(response);
+
+        this.audioUrl = URL.createObjectURL(response.data);
+      } catch (error) {
+        this.audioUrl = null;
+        this.$notify({
+          icon: "tim-icons icon-alert-circle-exc",
+          horizontalAlign: "center",
+          verticalAlign: "top",
+          type: "danger",
+          timeout: 3000,
+          message: "No se pudo cargar la grabación",
+        });
+      }
+    },
+    ...mapActions(useLlamadasStore, ["modCall", "addCall","delCall", "getRecording"]),
   },
   beforeUnmount() {
     if (this.audioUrl) {
@@ -190,6 +210,14 @@ export default {
           </div>
         </div>
       </div>
+      <base-button
+          slot="footer"
+          type="danger"
+          nativeType="link"
+          @click="deleteCall(this.call)"
+          fill
+          >Eliminar llamada</base-button
+        >
     </card>
   </div>
 </template>

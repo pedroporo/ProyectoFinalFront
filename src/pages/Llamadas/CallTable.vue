@@ -2,7 +2,7 @@
 import { BaseTable } from "@/components";
 import CallItem from "./CallItem.vue";
 import { useLlamadasStore } from "@/stores/llamadaStore";
-const tableColumns = ["id", "contact_name", "phone_number", "status"];
+const tableColumns = ["id", "contact_name", "phone_number","call_date", "status"];
 
 import { mapState, mapActions } from "pinia";
 import { Form, Field, ErrorMessage } from "vee-validate";

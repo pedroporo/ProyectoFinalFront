@@ -56,7 +56,7 @@ export const useLlamadasStore = defineStore("llamadaStore", {
     },
     async delCall(index) {
       try {
-        const indice = this.llamadas.findIndex((call) => call.id === index);
+        const indice = this.llamadas.findIndex((call) => call.id === index.id);
         const response = await api.calls.delete(index.id);
         if (response) {
           this.llamadas.splice(indice, 1);

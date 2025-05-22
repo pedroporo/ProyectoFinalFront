@@ -123,7 +123,7 @@ export default {
         });
         this.call = await this.getCall(this.$route.params.id);
         if (this.call.status == "completed") {
-          this.transcription = await this.getTranscript(this.call.call_id);
+          //this.transcription = await this.getTranscript(this.call.call_id);
           await this.fetchRecording(this.call.call_id);
         }
       } catch (error) {
@@ -263,8 +263,8 @@ export default {
                 v-model="call.status"
                 required
               >
-                <option default hidden value="">- Selecciona una voz -</option>
-                <option v-for="estado in this.statuses" :value="estado">
+                <option default hidden class="form-option" value="">- Selecciona una voz -</option>
+                <option v-for="estado in this.statuses" class="form-option" :value="estado">
                   {{ estado }}
                 </option>
               </Field>
