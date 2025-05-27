@@ -115,20 +115,19 @@ export default {
      async deleteCall(callId) {
       try {
         // Cambia la URL según tu backend
-        const response = await this.getRecording(callId);
+        const response = await this.delCall(callId);
         // Crear un objeto URL para el blob
         //console.log(response);
 
-        this.audioUrl = URL.createObjectURL(response.data);
+        
       } catch (error) {
-        this.audioUrl = null;
         this.$notify({
           icon: "tim-icons icon-alert-circle-exc",
           horizontalAlign: "center",
           verticalAlign: "top",
           type: "danger",
           timeout: 3000,
-          message: "No se pudo cargar la grabación",
+          message: "No se pudo eliminar la llamada",
         });
       }
     },

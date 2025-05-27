@@ -3,28 +3,21 @@
     <div class="container-fluid">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link" href="http://www.creative-tim.com">
-            Creative Tim
+          <a class="nav-link" href="https://github.com/pedroporo">
+            pedroporo1000
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://blog.creative-tim.com"> Blog </a>
+          <a class="nav-link" href="https://github.com/pedroporo?tab=repositories"> Repositorios </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="http://www.creative-tim.com/license">
-            Licenses
-          </a>
-        </li>
+        
       </ul>
       <div class="copyright">
-        © {{ year }} made with <i class="tim-icons icon-heart-2"></i> by
-        <a href="https://www.binarcode.com" target="_blank" rel="noopener"
-          >Binar Code</a
-        >&nbsp;&
-        <a href="https://www.creative-tim.com" target="_blank" rel="noopener"
-          >Creative Tim</a
+        © {{ year }} hecho con <i class="tim-icons icon-heart-2"></i> por
+        <a href="https://github.com/pedroporo" target="_blank" rel="noopener"
+          >pedroporo1000</a
         >
-        for a better web.
+        
       </div>
     </div>
   </footer>
