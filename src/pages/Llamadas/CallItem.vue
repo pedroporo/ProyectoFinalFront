@@ -129,6 +129,8 @@ export default {
           timeout: 3000,
           message: "No se pudo eliminar la llamada",
         });
+      } finally {
+        this.$router.push({ path: "/dashboard" });
       }
     },
     ...mapActions(useLlamadasStore, ["modCall", "addCall","delCall", "getRecording"]),
