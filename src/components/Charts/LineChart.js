@@ -1,9 +1,8 @@
-import { Line, mixins } from "vue-chartjs";
+import { Line } from "vue-chartjs";
 
 export default {
   name: "line-chart",
   extends: Line,
-  mixins: [mixins.reactiveProp],
   props: {
     extraOptions: Object,
     gradientColors: {
