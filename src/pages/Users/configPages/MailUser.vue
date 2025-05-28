@@ -58,10 +58,6 @@ export default {
       mail_user: yup
         .string("Tienes que introducir texto.")
         .required("Esto es requerido para que funcione la aplicacion"),
-      mail_recivers: yup
-        .array("Tiene que ser un array.")
-        .required("Esto es requerido para que funcione la aplicacion")
-        .min(1, "Por lo menos debe de existir 1 recipiente"),
     });
     return {
       user: {},
